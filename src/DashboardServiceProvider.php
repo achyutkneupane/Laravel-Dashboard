@@ -50,9 +50,13 @@ class DashboardServiceProvider extends ServiceProvider
 
             $this->publishes([
                 __DIR__.'/../config/dashboard.php' => config_path('dashboard.php'),
-                __DIR__.'/../views/sidebar.blade.php' => resource_path('views/'.$path.'livewire/components/sidebar.blade.php'),
-                __DIR__.'/../views/navbar.blade.php' => resource_path('views/'.$path.'livewire/components/navbar.blade.php'),
+                __DIR__.'/../views/sidebar.blade.php' => resource_path('views/livewire/components/sidebar.blade.php'),
+                __DIR__.'/../views/navbar.blade.php' => resource_path('views/livewire/components/navbar.blade.php'),
                 __DIR__.'/../views/layout.blade.php' => resource_path('views/'.$path.'layouts/app.blade.php'),
+
+                __DIR__.'/Livewire/Sidebar.php' => app_path('Livewire/Components/Sidebar.php'),
+                __DIR__.'/Livewire/Navbar.php' => app_path('Livewire/Components/Navbar.php'),
+
                 __DIR__.'/../views/sass/sidebar.scss' => resource_path('sass/sidebar.scss'),
             ]);
         }
