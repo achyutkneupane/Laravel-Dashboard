@@ -15,3 +15,9 @@ Route::get('/sub1', function () {
 Route::get('/sub2', function () {
     return app('view')->make('dashboard::link1');
 })->name('parent.sub2');
+
+
+Route::get('/logout', function () {
+    auth()->logout();
+    return redirect()->route('login');
+})->name('logout');
