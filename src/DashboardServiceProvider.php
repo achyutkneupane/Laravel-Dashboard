@@ -57,6 +57,8 @@ class DashboardServiceProvider extends ServiceProvider
                 __DIR__.'/Livewire/Sidebar.php' => app_path('Livewire/Components/Sidebar.php'),
                 __DIR__.'/Livewire/Navbar.php' => app_path('Livewire/Components/Navbar.php'),
 
+                __DIR__.'/../views/sass/_variables.scss' => resource_path('sass/_variables.scss'),
+                __DIR__.'/../views/sass/app.scss' => resource_path('sass/app.scss'),
                 __DIR__.'/../views/sass/sidebar.scss' => resource_path('sass/sidebar.scss'),
             ]);
         }
