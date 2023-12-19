@@ -13,6 +13,6 @@ class DashboardController extends Controller
      */
     public function link1(): \Illuminate\Contracts\Support\Renderable
     {
-        return view('dashboard.link1');
+        return app('view')->make('dashboard::link1');
     }
 }
