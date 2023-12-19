@@ -12,12 +12,12 @@ return [
     /**
      * Title on the sidebar top
      */
-    'title' => env('APP_NAME', 'Dashboard'),
+    'title' => env('APP_NAME', 'Laravel Dashboard'),
 
     /**
      * Logo on the sidebar top
      */
-    'logo' => asset('image/logo.svg'),
+    'logo' => 'images/logo.svg',
 
     /**
      * Show logo or title
@@ -40,11 +40,11 @@ return [
     /**
      * background image for the sidebar
      */
-    'background-image' => asset('image/bg.svg'),
+    'background-image' => 'images/bg.svg',
 
     /**
      * UI Framework for the sidebar
-     * options => 'bootstrap' or 'tailwind'
+     * options => 'bootstrap' for now
      */
     'theme' => 'bootstrap',
 
@@ -53,6 +53,16 @@ return [
      * options => HEX color
      */
     'text-color' => '#ffffff',
+    /**
+     * The type of icons to use
+     * options => 'font-awesome' or 'svg'
+     */
+    'icons' => 'svg',
+
+    /**
+     * The prefix for the route names
+     */
+    'prefix' => '',
 
     /**
      * Rows of the sidebar

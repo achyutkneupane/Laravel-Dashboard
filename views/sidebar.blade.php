@@ -4,7 +4,11 @@
     <div class="d-flex justify-content-between text-center justify-content-md-center">
         <div class="d-flex justify-content-center align-items-center gap-2">
             <h2 class="text-uppercase my-auto">
-                {{ config('app.name', 'Laravel Dashboard') }}
+                @if(config('dashboard.hasLogo') && config('dashboard.showLogoTitle') === "logo")
+                    <img src="{{ config('dashboard.logo') }}" alt="logo" style="width: 30px; height: 30px;">
+                @else
+                    {{ config('dashboard.title', 'Laravel Dashboard') }}
+                @endif
             </h2>
         </div>
         <div class="d-block d-md-none">
