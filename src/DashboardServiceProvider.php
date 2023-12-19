@@ -36,6 +36,9 @@ class DashboardServiceProvider extends ServiceProvider
          */
         $this->publishes([
             __DIR__.'/../config/dashboard.php' => config_path('dashboard.php'),
+            __DIR__.'/../views/sidebar.blade.php' => resource_path('views/livewire/components/sidebar.blade.php'),
+            __DIR__.'/../views/navbar.blade.php' => resource_path('views/livewire/components/navbar.blade.php'),
+            __DIR__.'/../views/layout.blade.php' => resource_path('views/layouts/app.blade.php'),
         ]);
     }
 
