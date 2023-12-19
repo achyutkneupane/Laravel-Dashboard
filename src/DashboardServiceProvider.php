@@ -1,10 +1,10 @@
 <?php
 
-namespace AkshyataTech\CMSPanel;
+namespace AchyutN\Dashboard;
 
 use Illuminate\Support\ServiceProvider;
 
-class CMSPanelServiceProvider extends ServiceProvider
+class DashboardServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -14,9 +14,9 @@ class CMSPanelServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-        $this->loadViewsFrom(__DIR__.'/views', 'cmspanel');
+        $this->loadViewsFrom(__DIR__.'/views', 'dashboard');
         $this->publishes([
-            __DIR__.'/config/cmspanel.php' => config_path('cmspanel.php'),
+            __DIR__.'/config/dashboard.php' => config_path('dashboard.php'),
         ]);
     }
 

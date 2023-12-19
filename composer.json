@@ -1,14 +1,14 @@
 {
-    "name": "akshyatatech/cmspanel",
-    "type": "library",
+    "name": "achyutn/laravel-dashboard",
     "require": {
         "livewire/livewire": "^2.10",
         "rappasoft/laravel-livewire-tables": "^2.8",
-        "spatie/laravel-medialibrary": "^10.6"
+        "spatie/laravel-medialibrary": "^10.6",
+        "laravel/framework": "^9.38"
     },
     "autoload": {
         "psr-4": {
-            "AkshyataTech\\CMSPanel\\": "src/"
+            "AchyutN\\Dashboard\\": "src/"
         }
     },
     "license": "MIT",
@@ -17,5 +17,12 @@
             "name": "Achyut Neupane",
             "email": "achyutkneupane@gmail.com"
         }
-    ]
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AchyutN\\Dashboard\\CMSPanelServiceProvider"
+            ]
+        }
+    }
 }
