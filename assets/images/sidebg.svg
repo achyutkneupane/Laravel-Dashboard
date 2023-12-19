@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="900" height="600" preserveAspectRatio="none" viewBox="0 0 900 600">
+    <g clip-path="url(&quot;#SvgjsClipPath1142&quot;)" fill="none">
+        <rect width="900" height="600" x="0" y="0" fill="rgba(37, 40, 52, 1)"></rect>
+        <circle r="100" cx="92.01" cy="51.03" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="100" cx="386.8" cy="406.23" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="53.68" cx="513.35" cy="556.99" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="149" cx="610.92" cy="304.72" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="94.08" cx="79.02" cy="469.06" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="69.94" cx="799.5" cy="191.56" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="191.37" cx="61.52" cy="297.08" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="176.02" cx="261.73" cy="464.64" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="152.465" cx="758.2" cy="493.25" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="67.53" cx="257.22" cy="98.01" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="189.57" cx="160.82" cy="210.01" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="123.85" cx="293.93" cy="576.77" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="155.53" cx="846.1" cy="450.64" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+        <circle r="192.635" cx="41.83" cy="381.41" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2"></circle>
+    </g>
+    <defs>
+        <clipPath id="SvgjsClipPath1142">
+            <rect width="900" height="600" x="0" y="0"></rect>
+        </clipPath>
+    </defs>
+</svg>

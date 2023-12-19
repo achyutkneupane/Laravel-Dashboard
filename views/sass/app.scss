@@ -1,0 +1,11 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+body {
+  min-height: 100vh;
+  max-width: 100vw !important;
+  overflow-x: hidden;
+}

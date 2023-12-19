@@ -1,0 +1,24 @@
+#sidebar {
+
+  width: 280px;
+  background-size: cover !important;
+
+  #nav-logo {
+    width: 150px;
+  }
+
+  .nav-item .nav-link {
+    color: #ffffff;
+  }
+
+  .nav-item .nav-link:hover {
+    color: #e3e3e3;
+  }
+
+  .nav-item > .active {
+
+    background-color: #ffffff !important;
+    color: #252834 !important;
+    font-weight: bold;
+  }
+}
