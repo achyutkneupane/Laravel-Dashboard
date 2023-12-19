@@ -1,10 +1,10 @@
 {
     "name": "achyutn/laravel-dashboard",
     "require": {
-        "livewire/livewire": "^2.10",
-        "rappasoft/laravel-livewire-tables": "^2.8",
-        "spatie/laravel-medialibrary": "^10.6",
-        "laravel/framework": "^9.38"
+        "livewire/livewire": "^2.12.6|^3.3.1",
+        "rappasoft/laravel-livewire-tables": "^3.1.5|^2.15.0",
+        "spatie/laravel-medialibrary": "^11.0.0",
+        "laravel/framework": "^v10.38.0"
     },
     "autoload": {
         "psr-4": {
