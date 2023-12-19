@@ -1,6 +1,6 @@
 <div class="offcanvas-md offcanvas-start p-3 text-white fixed-top vh-100 overflow-y-scroll"
      data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" aria-labelledby="sidebarLabel" id="sidebar"
-     style="background: #ffffff url('{{ asset('images/sidebg.svg') }}') no-repeat center; z-index: 1100;">
+     style="@if(config('dashboard.background') === "color") background-color: {{ asset(config('dashboard.background-color')) }} !important; @elseif(config('dashboard.background') === "image") background: #ffffff url('{{ asset(config('dashboard.background-image')) }}') no-repeat center; @endif z-index: 1100;">
     <div class="d-flex justify-content-between text-center justify-content-md-center">
         <div class="d-flex justify-content-center align-items-center gap-2">
             <h2 class="text-uppercase my-auto">

@@ -40,7 +40,7 @@ return [
     /**
      * background image for the sidebar
      */
-    'background-image' => 'images/bg.svg',
+    'background-image' => 'images/sidebg.svg',
 
     /**
      * UI Framework for the sidebar
