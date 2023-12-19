@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-between text-center justify-content-md-center">
         <div class="d-flex justify-content-center align-items-center gap-2">
             <h2 class="text-uppercase my-auto">
-                {{ config('app.name') }}
+                {{ config('app.name', 'Laravel Dashboard') }}
             </h2>
         </div>
         <div class="d-block d-md-none">
