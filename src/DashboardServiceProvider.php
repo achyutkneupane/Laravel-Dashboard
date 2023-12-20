@@ -57,12 +57,18 @@ class DashboardServiceProvider extends ServiceProvider
                 __DIR__.'/Livewire/Sidebar.php' => app_path('Livewire/Components/Sidebar.php'),
                 __DIR__.'/Livewire/Navbar.php' => app_path('Livewire/Components/Navbar.php'),
 
-                __DIR__.'/../views/sass/_variables.scss' => resource_path('sass/_variables.scss'),
-                __DIR__.'/../views/sass/app.scss' => resource_path('sass/app.scss'),
-                __DIR__.'/../views/sass/sidebar.scss' => resource_path('sass/sidebar.scss'),
+                __DIR__.'/../sass/_variables.scss' => resource_path('sass/_variables.scss'),
+                __DIR__.'/../sass/app.scss' => resource_path('sass/app.scss'),
+                __DIR__.'/../sass/sidebar.scss' => resource_path('sass/sidebar.scss'),
 
                 __DIR__.'/../assets/images/sidebg.svg' => public_path('images/sidebg.svg'),
             ]);
+        }
+
+        $bootstrap_js = file_get_contents(resource_path('js/bootstrap.js'));
+        if(strpos($bootstrap_js, "import 'bootstrap';") === false) {
+            $bootstrap_js = "import 'bootstrap';\n" . $bootstrap_js;
+            file_put_contents(resource_path('js/bootstrap.js'), $bootstrap_js);
         }
     }
 
