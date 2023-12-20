@@ -1,0 +1,5 @@
+@section('page_title', $title)
+
+<div>
+
+</div>

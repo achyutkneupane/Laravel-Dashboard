@@ -62,6 +62,8 @@ class DashboardServiceProvider extends ServiceProvider
                 __DIR__.'/../sass/sidebar.scss' => resource_path('sass/sidebar.scss'),
 
                 __DIR__.'/../assets/images/sidebg.svg' => public_path('images/sidebg.svg'),
+
+                __DIR__.'/../stubs/' => base_path('stubs/'),
             ]);
         }
 

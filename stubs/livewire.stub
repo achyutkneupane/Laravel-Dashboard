@@ -1,0 +1,19 @@
+<?php
+
+namespace [namespace];
+
+use Livewire\Component;
+
+class [class] extends Component
+{
+    public string $title;
+    public function mount() : void
+    {
+        $this->title = "[class]";
+    }
+
+    public function render() : \Illuminate\Contracts\View\View
+    {
+        return view('[view]');
+    }
+}
