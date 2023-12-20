@@ -65,6 +65,22 @@ return [
     'prefix' => '',
 
     /**
+     * Enable test routes
+     *
+     * If you want to disable the test routes, set this to true
+     */
+    'enableTestRoutes' => false,
+
+    /**
+     * Enable logout from package
+     *
+     * With this option you can disable the logout route from the package.
+     * If you disable this option, you have to create your own logout route.
+     * Else, you will get an error until you create your own logout route.
+     */
+    'enableLogout' => true,
+
+    /**
      * Rows of the sidebar
      *
      * 'sidebar' is the parent for the return array where children are:
@@ -81,6 +97,7 @@ return [
      *                     the row highlighted
      *
      */
+
     'sidebar' => [
         [
             'title' => 'Link1',

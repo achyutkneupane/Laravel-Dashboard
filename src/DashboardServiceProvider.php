@@ -50,20 +50,20 @@ class DashboardServiceProvider extends ServiceProvider
 
             $this->publishes([
                 __DIR__.'/../config/dashboard.php' => config_path('dashboard.php'),
-                __DIR__.'/../views/sidebar.blade.php' => resource_path('views/livewire/components/sidebar.blade.php'),
-                __DIR__.'/../views/navbar.blade.php' => resource_path('views/livewire/components/navbar.blade.php'),
-                __DIR__.'/../views/layout.blade.php' => resource_path('views/'.$path.'layouts/app.blade.php'),
+                __DIR__.'/views/sidebar.blade.php' => resource_path('views/livewire/components/sidebar.blade.php'),
+                __DIR__.'/views/navbar.blade.php' => resource_path('views/livewire/components/navbar.blade.php'),
+                __DIR__.'/views/layout.blade.php' => resource_path('views/'.$path.'layouts/app.blade.php'),
 
                 __DIR__.'/Livewire/Sidebar.php' => app_path('Livewire/Components/Sidebar.php'),
                 __DIR__.'/Livewire/Navbar.php' => app_path('Livewire/Components/Navbar.php'),
 
-                __DIR__.'/../sass/_variables.scss' => resource_path('sass/_variables.scss'),
-                __DIR__.'/../sass/app.scss' => resource_path('sass/app.scss'),
-                __DIR__.'/../sass/sidebar.scss' => resource_path('sass/sidebar.scss'),
+                __DIR__.'/sass/_variables.scss' => resource_path('sass/_variables.scss'),
+                __DIR__.'/sass/app.scss' => resource_path('sass/app.scss'),
+                __DIR__.'/sass/sidebar.scss' => resource_path('sass/sidebar.scss'),
 
-                __DIR__.'/../assets/images/sidebg.svg' => public_path('images/sidebg.svg'),
+                __DIR__.'/assets/images/sidebg.svg' => public_path('images/sidebg.svg'),
 
-                __DIR__.'/../stubs/' => base_path('stubs/'),
+                __DIR__.'/stubs/' => base_path('stubs/'),
             ]);
         }
 
