@@ -23,36 +23,48 @@
     <hr/>
     <ul class="nav nav-pills flex-column mb-auto gap-0 flex-nowrap">
         @foreach(config('dashboard.sidebar') as $item)
-            @if(!array_key_exists('test-route', $item) || (array_key_exists('test-route', $item) && config('dashboard.enableTestRoutes') === true))
-                @php
+            @php
+                $subRoutes = [];
+                $noMenuRoutes = [];
+                if(!array_key_exists('route', $item)) {
                     $subRoutes = [];
-                    $noMenuRoutes = [];
-                    if(!array_key_exists('route', $item)) {
-                        $subRoutes = [];
-                        foreach($item['submenu'] as $subItem) {
-                            $subRoutes[] = config('dashboard.prefix').$subItem['route'];
-                        }
+                    foreach($item['submenu'] as $subItem) {
+                        $subRoutes[] = config('dashboard.prefix').$subItem['route'];
                     }
-                    $noMenuRoutes = [];
-                    if(array_key_exists('noMenuRoutes', $item)) {
-                        foreach($item['noMenuRoutes'] as $noMenuRoute) {
-                            $noMenuRoutes[] = config('dashboard.prefix').$noMenuRoute;
-                        }
+                }
+                $noMenuRoutes = [];
+                if(array_key_exists('noMenuRoutes', $item)) {
+                    foreach($item['noMenuRoutes'] as $noMenuRoute) {
+                        $noMenuRoutes[] = config('dashboard.prefix').$noMenuRoute;
                     }
-                    $slug = str_replace(' ', '-', $item['title']);
+                }
+                $slug = str_replace(' ', '-', $item['title']);
 
-                    $guards = [];
-                    if(array_key_exists('guard', $item)) {
-                        $guards[] = $item['guard'];
-                    }
-                    if(array_key_exists('submenu', $item)) {
-                        foreach($item['submenu'] as $subItem) {
-                            if(array_key_exists('guard', $subItem)) {
-                                $guards[] = $subItem['guard'];
-                            }
+                $guards = [];
+                $hasNoTestRoute = false;
+                if(array_key_exists('guard', $item)) {
+                    $guards[] = $item['guard'];
+                }
+                if(array_key_exists('submenu', $item)) {
+                    foreach($item['submenu'] as $subItem) {
+                        if(array_key_exists('guard', $subItem)) {
+                            $guards[] = $subItem['guard'];
+                        }
+                        if(!array_key_exists('test-route', $subItem) || (array_key_exists('test-route', $subItem) && $subItem['test-route'] === true)) {
+                            $hasNoTestRoute = true;
                         }
                     }
-                @endphp
+                }
+            @endphp
+
+            @php
+                $canGoFurther = true;
+                if(array_key_exists('test-route', $item) && !(!array_key_exists('test-route', $item) && config('dashboard.enableTestRoutes') === true) && $item['test-route'] === true && !(array_key_exists('submenu', $item) && !$hasNoTestRoute)) {
+                    $canGoFurther = false;
+                }
+            @endphp
+
+            @if($canGoFurther)
                 @if((array_key_exists('guard', $item) && auth()->user()->canAny($guards)) || !array_key_exists('guard', $item))
                     <li class="nav-item py-1">
                         @if(!array_key_exists('route', $item))
@@ -105,7 +117,7 @@
                                     id="{{ $slug }}Collapse">
                                 <ul class="d-flex flex-column align-items-end mt-2 pb-0 nav nav-pills">
                                     @foreach($item['submenu'] as $index => $subItem)
-                                        @if(!array_key_exists('test-route', $subItem) || (array_key_exists('test-route', $subItem) && config('dashboard.enableTestRoutes') === true))
+                                        @if(!array_key_exists('test-route', $subItem) || (array_key_exists('test-route', $subItem) && config('dashboard.enableTestRoutes') === true) || $subItem['test-route'] === false)
                                             @if((array_key_exists('guard', $subItem) && auth()->user()->can($subItem['guard'])) || !array_key_exists('guard', $subItem))
                                                 <li class="nav-item" style="width: 90%;">
                                                     <a href="{{ route(config('dashboard.prefix').$subItem['route']) }}"
