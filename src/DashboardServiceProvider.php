@@ -19,7 +19,7 @@ class DashboardServiceProvider extends ServiceProvider
          * @method loadViewsFrom
          */
         if (method_exists($this, 'loadViewsFrom')) {
-            $this->loadViewsFrom(__DIR__.'/../views', 'dashboard');
+            $this->loadViewsFrom(__DIR__.'/views', 'dashboard');
         }
 
         /**
@@ -27,7 +27,7 @@ class DashboardServiceProvider extends ServiceProvider
          *
          * @method loadRoutesFrom
          */
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
 
         /**
          * Publish the config and view files
@@ -46,16 +46,26 @@ class DashboardServiceProvider extends ServiceProvider
             $livewire_version = explode('.', $livewire_version)[0];
             $livewire_version = (int)substr($livewire_version, 1);
 
-            $path = $livewire_version >= 3 ? 'components/' : '';
+            $viewPath = $livewire_version >= 3 ? 'components/' : '';
+            $compPath = $livewire_version >= 3 ? '' : 'Http/';
+
+            if($livewire_version >= 3) {
+                $this->publishes([
+                    __DIR__.'/LiveWire/Sidebar.php' => app_path('Livewire/Components/Sidebar.php'),
+                    __DIR__.'/LiveWire/Navbar.php' => app_path('Livewire/Components/Navbar.php'),
+                ]);
+            } else {
+                $this->publishes([
+                    __DIR__.'/LiveWire/Sidebarv2.php' => app_path('Http/Livewire/Components/Sidebar.php'),
+                    __DIR__.'/LiveWire/Navbarv2.php' => app_path('Http/Livewire/Components/Navbar.php'),
+                ]);
+            }
 
             $this->publishes([
                 __DIR__.'/../config/dashboard.php' => config_path('dashboard.php'),
                 __DIR__.'/views/sidebar.blade.php' => resource_path('views/livewire/components/sidebar.blade.php'),
                 __DIR__.'/views/navbar.blade.php' => resource_path('views/livewire/components/navbar.blade.php'),
-                __DIR__.'/views/layout.blade.php' => resource_path('views/'.$path.'layouts/app.blade.php'),
-
-                __DIR__.'/Livewire/Sidebar.php' => app_path('Livewire/Components/Sidebar.php'),
-                __DIR__.'/Livewire/Navbar.php' => app_path('Livewire/Components/Navbar.php'),
+                __DIR__.'/views/layout.blade.php' => resource_path('views/'.$viewPath.'layouts/app.blade.php'),
 
                 __DIR__.'/sass/_variables.scss' => resource_path('sass/_variables.scss'),
                 __DIR__.'/sass/app.scss' => resource_path('sass/app.scss'),
