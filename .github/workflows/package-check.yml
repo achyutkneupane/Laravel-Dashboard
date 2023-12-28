@@ -12,41 +12,47 @@ jobs:
     name: Check for updates
     runs-on: ubuntu-latest
     steps:
-      - name: Install Composer
-        uses: php-actions/setup@v2
-        with:
-          php-version: '8.2'
-
-      - name: Install PHP-CLI
-        run: sudo apt-get install php-cli
+      - name: Install JQ
+        run: sudo apt-get install jq
 
       - name: Check for updates
         run: |
-          php -r '
-            $composerJson = file_get_contents("composer.json");
-            $composerData = json_decode($composerJson, true);
+          #!/bin/bash
 
-            foreach ($composerData["require"] as $package => $version) {
-              exec("composer show -l $package", $output, $returnCode);
-              if ($returnCode === 0) {
-                $lines = array_filter($output, function ($line) {
-                  return strpos($line, "latest") !== false;
-                });
-                foreach ($lines as $line) {
-                  preg_match("/\(([^\)]+)\)/", $line, $matches);
-                  if (isset($matches[1])) {
-                    $latestVersion = $matches[1];
-                    if (version_compare($latestVersion, $version, ">")) {
-                      echo "Updating $package from $version to $latestVersion\n";
-                      $composerData["require"][$package] = "^$latestVersion";
-                    }
-                  }
-                }
-              }
-            }
+          # Function to get the latest version from Packagist
+          get_latest_version() {
+              packageName=$1
+              latestVersion=$(curl -s "https://repo.packagist.org/p/${packageName}.json" | jq -r '.packages["'"$packageName"'"][0].version')
+              echo "$latestVersion"
+          }
 
-            file_put_contents("composer.json", json_encode($composerData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");
-          '
+          # Check if composer.json exists
+          if [ -f "composer.json" ]; then
+              # Read composer.json and update versions
+              while IFS=":" read -r key value; do
+                  key=$(echo "$key" | tr -d '," ')
+                  value=$(echo "$value" | tr -d '," ')
+
+                  if [ "$key" == "require" ]; then
+                      # Iterate through package names and update versions
+                      while IFS=":" read -r package version; do
+                          package=$(echo "$package" | tr -d '," ')
+                          version=$(echo "$version" | tr -d '," ')
+                          latest_version=$(get_latest_version "$package")
+
+                          if [ "$latest_version" != "null" ]; then
+                              # Update version if a newer version exists
+                              sed -i "s/\"$package\": \"$version\"/\"$package\": \"$latest_version\"/g" composer.json
+                              echo "Updated $package from $version to $latest_version"
+                          else
+                              echo "No update available for $package"
+                          fi
+                      done < <(echo "$value" | jq -r 'to_entries[] | .key + " " + .value')
+                  fi
+              done < <(jq -r 'to_entries[] | .key + " " + (.value | tostring)' composer.json)
+          else
+              echo "composer.json not found!"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
