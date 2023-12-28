@@ -26,7 +26,7 @@ return [
      * Background for the sidebar
      * options => 'image' or 'color'
      */
-    'background' => 'color',
+    'background' => 'image',
 
     /**
      * background color for the sidebar

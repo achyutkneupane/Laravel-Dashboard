@@ -16,18 +16,18 @@ You can install the package via composer:
 composer require achyutn/laravel-dashboard
 ```
 
-You can publish the views and config file with:
-
-```bash
-php artisan vendor:publish --provider="AchyutN\Dashboard\DashboardServiceProvider"
-```
-
 Install `sass` and `bootstrap` to your project:
 
 ```bash
 npm install sass bootstrap
 ```
 
+You can publish the views and config file with:
+
+```bash
+php artisan vendor:publish --provider="AchyutN\Dashboard\DashboardServiceProvider"
+```
+
 ## Usage
 
-You can simply customize the dashboard by editing the `config/dashboard.php` file.
+You can simply customize the dashboard by editing the [config/dashboard.php](config/dashboard.php) file.

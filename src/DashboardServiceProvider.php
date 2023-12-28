@@ -2,7 +2,10 @@
 
 namespace AchyutN\Dashboard;
 
+use AchyutN\Dashboard\Livewire\Navbar;
+use AchyutN\Dashboard\Livewire\Sidebar;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class DashboardServiceProvider extends ServiceProvider
 {
@@ -13,6 +16,12 @@ class DashboardServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /**
+         * Register Livewire components
+         */
+        Livewire::component('sidebar', Sidebar::class);
+        Livewire::component('navbar', Navbar::class);
+
         /**
          * Load views from the package
          *
@@ -47,24 +56,9 @@ class DashboardServiceProvider extends ServiceProvider
             $livewire_version = (int)substr($livewire_version, 1);
 
             $viewPath = $livewire_version >= 3 ? 'components/' : '';
-            $compPath = $livewire_version >= 3 ? '' : 'Http/';
-
-            if($livewire_version >= 3) {
-                $this->publishes([
-                    __DIR__.'/LiveWire/Sidebar.php' => app_path('Livewire/Components/Sidebar.php'),
-                    __DIR__.'/LiveWire/Navbar.php' => app_path('Livewire/Components/Navbar.php'),
-                ]);
-            } else {
-                $this->publishes([
-                    __DIR__.'/LiveWire/Sidebarv2.php' => app_path('Http/Livewire/Components/Sidebar.php'),
-                    __DIR__.'/LiveWire/Navbarv2.php' => app_path('Http/Livewire/Components/Navbar.php'),
-                ]);
-            }
 
             $this->publishes([
                 __DIR__.'/../config/dashboard.php' => config_path('dashboard.php'),
-                __DIR__.'/views/sidebar.blade.php' => resource_path('views/livewire/components/sidebar.blade.php'),
-                __DIR__.'/views/navbar.blade.php' => resource_path('views/livewire/components/navbar.blade.php'),
                 __DIR__.'/views/layout.blade.php' => resource_path('views/'.$viewPath.'layouts/app.blade.php'),
 
                 __DIR__.'/sass/_variables.scss' => resource_path('sass/_variables.scss'),
@@ -81,6 +75,12 @@ class DashboardServiceProvider extends ServiceProvider
         if(strpos($bootstrap_js, "import 'bootstrap';") === false) {
             $bootstrap_js = "import 'bootstrap';\n" . $bootstrap_js;
             file_put_contents(resource_path('js/bootstrap.js'), $bootstrap_js);
+        }
+
+        $vite = file_get_contents(base_path('vite.config.js'));
+        if(strpos($vite, "resources/sass/app.scss") === false) {
+            $vite = str_replace("input: ['resources/css/app.css', 'resources/js/app.js'],", "input: ['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js', 'resources/sass/sidebar.scss'],", $vite);
+            file_put_contents(base_path('vite.config.js'), $vite);
         }
     }
 

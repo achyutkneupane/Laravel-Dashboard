@@ -6,7 +6,8 @@
         "rappasoft/laravel-livewire-tables": "^3.1.5|^2.15.0",
         "spatie/laravel-medialibrary": "^11.0.0",
         "laravel/framework": "^v10.38.0",
-        "laravel/ui": "^4.3.0"
+        "laravel/ui": "^4.3.0",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
