@@ -1,7 +1,5 @@
 name: Upgrade packages
 'on':
-  schedule:
-    - cron: 0 0 12 ? * MON *
   push:
     branches:
       - ci-cd
