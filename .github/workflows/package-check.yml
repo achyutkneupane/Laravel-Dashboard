@@ -33,7 +33,18 @@ jobs:
           
           git diff --quiet && git diff --staged --quiet || git commit -am "build(deps): Update dependency versions" || echo "No changes to commit"
 
-      - name: Push changes
-        if: github.event_name == 'push' && github.ref == 'refs/heads/ci-cd'
-        run: |
-          git push origin ci-cd
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update dependency versions
+          title: Update dependency versions
+          body: |
+            This is an automated PR to update dependency versions.
+            Please review and merge this PR if it looks good.
+          branch: ci-cd
+          branch-suffix: timestamp
+          delete-branch: true
+          labels: dependencies
+          reviewers: achyutkneupane
+          assignees: achyutkneupane

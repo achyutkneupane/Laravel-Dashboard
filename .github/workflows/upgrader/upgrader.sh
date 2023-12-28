@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+git config --global user.name "Achyut Neupane"
+git config --global user.email "achyutkneupane@gmail.com"
+
 get_latest_version() {
     packageName=$1
     latestVersion=$(curl -s "https://repo.packagist.org/p2/${packageName}.json" | jq -r '.packages["'$packageName'"] | keys[] as $k | .[$k].version' | sort -V | tail -1)
@@ -14,6 +18,8 @@ update_version() {
     escapedOldVersion=$(sed 's/[\*\.&\/]/\\&/g' <<< "$oldVersion")
     escapedNewVersion=$(sed 's/[\*\.&\/]/\\&/g' <<< "$newVersion")
     jq --arg packageName "$packageName" --arg oldVersion "$oldVersion" --arg newVersion "$newVersion" '.require[$packageName] = $newVersion' composer.json > composer.json.tmp && mv composer.json.tmp composer.json
+    git add composer.json
+    git commit -m "Update $packageName from $oldVersion to $newVersion"
 }
 
 jq -r 'keys[] as $k | "\($k) \(.[$k])"' composer.json | while read -r key value; do
