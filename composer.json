@@ -1,5 +1,6 @@
 {
     "name": "achyutn/laravel-dashboard",
+    "description": "The ready-to-use Laravel Dashboard with Livewire.",
     "require": {
         "php": "^7.3|^8.0",
         "livewire/livewire": "^2.12.6|^3.3.1",
@@ -24,7 +25,9 @@
     "authors": [
         {
             "name": "Achyut Neupane",
-            "email": "achyutkneupane@gmail.com"
+            "email": "achyutkneupane@gmail.com",
+            "homepage": "https://achyut.com.np",
+            "role": "Maintainer"
         }
     ],
     "extra": {
