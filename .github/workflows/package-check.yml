@@ -5,6 +5,7 @@ name: Upgrade packages
       - ci-cd
 permissions:
   contents: write
+  pull-requests: write
 jobs:
   main:
     name: Check for updates
@@ -34,17 +35,15 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git commit -am "build(deps): Update dependency versions" || echo "No changes to commit"
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update dependency versions
-          title: Update dependency versions
-          body: |
-            This is an automated PR to update dependency versions.
-            Please review and merge this PR if it looks good.
+          title: "build(deps): Update dependency versions"
+          commit-message: "build(deps): Update dependency versions"
           branch: ci-cd
-          branch-suffix: timestamp
-          delete-branch: true
+          body: |
+              This PR updates the dependencies to their latest versions.
+              Please review the changes and merge it if it looks good.
           labels: dependencies
-          reviewers: achyutkneupane
-          assignees: achyutkneupane
+          author: Achyut Neupane<achyutkneupane@gmail.com>
+          signoff: true
