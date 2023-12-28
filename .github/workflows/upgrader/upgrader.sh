@@ -19,7 +19,7 @@ update_version() {
     escapedNewVersion=$(sed 's/[\*\.&\/]/\\&/g' <<< "$newVersion")
     jq --arg packageName "$packageName" --arg oldVersion "$oldVersion" --arg newVersion "$newVersion" '.require[$packageName] = $newVersion' composer.json > composer.json.tmp && mv composer.json.tmp composer.json
     git add composer.json
-    git commit -m "Update $packageName from $oldVersion to $newVersion"
+    git commit -m "deps: Update $packageName from $oldVersion to $newVersion"
 }
 
 jq -r 'keys[] as $k | "\($k) \(.[$k])"' composer.json | while read -r key value; do

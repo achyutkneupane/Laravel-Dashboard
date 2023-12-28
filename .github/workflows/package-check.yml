@@ -39,12 +39,15 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "build(deps): Update dependency versions"
-          commit-message: "build(deps): Update dependency versions"
+          commit-message: "Update dependency versions"
           branch: ci-cd
           base: master
           body: |
               This PR updates the dependencies to their latest versions.
               Please review the changes and merge it if it looks good.
-          labels: dependencies
+          labels: dependencies, automated
           author: Achyut Neupane<achyutkneupane@gmail.com>
+          commiter: Achyut Neupane<achyutkneupane@gmail.com>
           signoff: true
+          reviewers: achyutkneupane
+          assignees: achyutkneupane
