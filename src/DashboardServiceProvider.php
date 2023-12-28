@@ -76,6 +76,12 @@ class DashboardServiceProvider extends ServiceProvider
             $bootstrap_js = "import 'bootstrap';\n" . $bootstrap_js;
             file_put_contents(resource_path('js/bootstrap.js'), $bootstrap_js);
         }
+
+        $vite = file_get_contents(base_path('vite.config.js'));
+        if(strpos($vite, "resources/sass/app.scss") === false) {
+            $vite = str_replace("input: ['resources/css/app.css', 'resources/js/app.js'],", "input: ['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js', 'resources/sass/sidebar.scss'],", $vite);
+            file_put_contents(base_path('vite.config.js'), $vite);
+        }
     }
 
     /**
