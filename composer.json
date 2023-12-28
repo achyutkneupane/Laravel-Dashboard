@@ -8,12 +8,12 @@
         "spatie/laravel-medialibrary": "^11.0.0",
         "laravel/framework": "^v10.38.0",
         "laravel/ui": "^4.3.0",
-        "ext-json": "*",
         "barryvdh/laravel-debugbar": "^3.9",
         "spatie/laravel-sluggable": "^3.5",
         "spatie/laravel-permission": "^6.3",
         "rap2hpoutre/laravel-log-viewer": "^2.3",
-        "dipesh79/laravel-user-logs": "^1.4"
+        "dipesh79/laravel-user-logs": "^1.4",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
