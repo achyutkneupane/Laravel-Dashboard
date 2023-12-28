@@ -2,7 +2,10 @@
 
 namespace AchyutN\Dashboard;
 
+use AchyutN\Dashboard\Livewire\Navbar;
+use AchyutN\Dashboard\Livewire\Sidebar;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class DashboardServiceProvider extends ServiceProvider
 {
@@ -13,6 +16,12 @@ class DashboardServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /**
+         * Register Livewire components
+         */
+        Livewire::component('sidebar', Sidebar::class);
+        Livewire::component('navbar', Navbar::class);
+
         /**
          * Load views from the package
          *

@@ -46,11 +46,11 @@
 <body>
 <div id="app" class="vh-100 d-flex flex-row overflow-hidden">
     @auth
-        <livewire:components.sidebar />
+        <livewire:sidebar />
     @endauth
     <main class="position-absolute body-comp top-0">
         @auth
-            <livewire:components.navbar :title="app()->view->getSections()['page_title'] ?? 'Undefined'" />
+            <livewire:navbar :title="app()->view->getSections()['page_title'] ?? 'Undefined'" />
             <div class="container-fluid w-100">
                 {{ $slot }}
             </div>

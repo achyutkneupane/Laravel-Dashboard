@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components;
+namespace AchyutN\Dashboard\Livewire;
 
 use Livewire\Component;
 
