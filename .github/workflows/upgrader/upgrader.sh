@@ -13,7 +13,7 @@ update_version() {
     escapedPackageName=$(sed 's/[\*\.&\/]/\\&/g' <<< "$packageName")
     escapedOldVersion=$(sed 's/[\*\.&\/]/\\&/g' <<< "$oldVersion")
     escapedNewVersion=$(sed 's/[\*\.&\/]/\\&/g' <<< "$newVersion")
-    sed -i '' "s/\"$escapedPackageName\": \"$escapedOldVersion\"/\"$escapedPackageName\": \"$escapedNewVersion\"/g" composer.json
+    jq --arg packageName "$packageName" --arg oldVersion "$oldVersion" --arg newVersion "$newVersion" '.require[$packageName] = $newVersion' composer.json > composer.json.tmp && mv composer.json.tmp composer.json
 }
 
 jq -r 'keys[] as $k | "\($k) \(.[$k])"' composer.json | while read -r key value; do
