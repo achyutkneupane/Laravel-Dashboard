@@ -41,6 +41,7 @@ jobs:
           title: "build(deps): Update dependency versions"
           commit-message: "build(deps): Update dependency versions"
           branch: ci-cd
+          base: master
           body: |
               This PR updates the dependencies to their latest versions.
               Please review the changes and merge it if it looks good.
