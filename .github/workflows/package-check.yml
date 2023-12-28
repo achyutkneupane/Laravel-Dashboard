@@ -13,6 +13,11 @@ jobs:
       - name: Install JQ
         run: sudo apt-get install jq
 
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Check for updates
         run: |
           #!/bin/bash
