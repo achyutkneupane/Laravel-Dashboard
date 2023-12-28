@@ -2,9 +2,6 @@ name: Upgrade packages
 'on':
   schedule:
     - cron: '0 0 * * 0'
-  push:
-    branches:
-      - ci-cd
 permissions:
   contents: write
   pull-requests: write

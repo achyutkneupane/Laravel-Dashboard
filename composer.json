@@ -3,7 +3,7 @@
   "description": "The ready-to-use Laravel Dashboard with Livewire.",
   "require": {
     "php": "^7.3|^8.0",
-    "livewire/livewire": "v1.0.0",
+    "livewire/livewire": "v3.3.3",
     "rappasoft/laravel-livewire-tables": "v3.1.6",
     "spatie/image": "3.3.2",
     "spatie/laravel-medialibrary": "11.0.3",
@@ -13,7 +13,7 @@
     "spatie/laravel-sluggable": "3.5.0",
     "spatie/laravel-permission": "6.3.0",
     "rap2hpoutre/laravel-log-viewer": "v2.3.0",
-    "dipesh79/laravel-user-logs": "1.0.0",
+    "dipesh79/laravel-user-logs": "1.4.2",
     "ext-json": "*"
   },
   "autoload": {
