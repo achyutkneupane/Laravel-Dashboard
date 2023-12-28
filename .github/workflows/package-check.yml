@@ -14,9 +14,10 @@ jobs:
         run: sudo apt-get install jq
 
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ci-cd
 
       - name: Check for updates
         run: |
@@ -58,8 +59,10 @@ jobs:
         run: |
           git config --global user.name "Achyut Neupane"
           git config --global user.email "achyutkneupane@gmail.com"
-          git add composer.json
-          git commit -m "build(deps): Update dependency versions"
-          git push
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          
+          git diff --quiet && git diff --staged --quiet || git commit -am "build(deps): Update dependency versions" || echo "No changes to commit"
+
+      - name: Push changes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/ci-cd'
+        run: |
+          git push origin ci-cd
