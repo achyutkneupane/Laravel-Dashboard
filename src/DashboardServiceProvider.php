@@ -47,24 +47,9 @@ class DashboardServiceProvider extends ServiceProvider
             $livewire_version = (int)substr($livewire_version, 1);
 
             $viewPath = $livewire_version >= 3 ? 'components/' : '';
-            $compPath = $livewire_version >= 3 ? '' : 'Http/';
-
-            if($livewire_version >= 3) {
-                $this->publishes([
-                    __DIR__.'/LiveWire/Sidebar.php' => app_path('Livewire/Components/Sidebar.php'),
-                    __DIR__.'/LiveWire/Navbar.php' => app_path('Livewire/Components/Navbar.php'),
-                ]);
-            } else {
-                $this->publishes([
-                    __DIR__.'/LiveWire/Sidebarv2.php' => app_path('Http/Livewire/Components/Sidebar.php'),
-                    __DIR__.'/LiveWire/Navbarv2.php' => app_path('Http/Livewire/Components/Navbar.php'),
-                ]);
-            }
 
             $this->publishes([
                 __DIR__.'/../config/dashboard.php' => config_path('dashboard.php'),
-                __DIR__.'/views/sidebar.blade.php' => resource_path('views/livewire/components/sidebar.blade.php'),
-                __DIR__.'/views/navbar.blade.php' => resource_path('views/livewire/components/navbar.blade.php'),
                 __DIR__.'/views/layout.blade.php' => resource_path('views/'.$viewPath.'layouts/app.blade.php'),
 
                 __DIR__.'/sass/_variables.scss' => resource_path('sass/_variables.scss'),
