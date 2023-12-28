@@ -1,0 +1,55 @@
+name: Upgrade packages
+'on':
+  schedule:
+    - cron: '0 0 * * 0'
+  push:
+    branches:
+      - ci-cd
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  main:
+    name: Check for updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install JQ
+        run: sudo apt-get install jq
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: master
+
+      - name: Check for updates
+        run: |
+          chmod +x .github/workflows/upgrader/upgrader.sh
+          ./.github/workflows/upgrader/upgrader.sh
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "Achyut Neupane"
+          git config --global user.email "achyutkneupane@gmail.com"
+          
+          git diff --quiet && git diff --staged --quiet || git commit -am "build(deps): Update dependency versions" || echo "No changes to commit"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "build(deps): Update dependency versions"
+          commit-message: "Update dependency versions"
+          branch: deps
+          base: master
+          body: |
+              This PR updates the dependencies to their latest versions.
+              Please review the changes and merge it if it looks good.
+          labels: dependencies, automated
+          author: Achyut Neupane<achyutkneupane@gmail.com>
+          commiter: Achyut Neupane<achyutkneupane@gmail.com>
+          signoff: true
+          reviewers: achyutkneupane
+          assignees: achyutkneupane
