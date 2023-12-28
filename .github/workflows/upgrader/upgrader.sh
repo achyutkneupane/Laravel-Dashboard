@@ -1,8 +1,9 @@
 #!/bin/bash
 
-
 git config --global user.name "Achyut Neupane"
 git config --global user.email "achyutkneupane@gmail.com"
+
+git checkout -b deps
 
 get_latest_version() {
     packageName=$1

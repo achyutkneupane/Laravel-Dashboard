@@ -1,5 +1,7 @@
 name: Upgrade packages
 'on':
+  schedule:
+    - cron: '0 0 * * 0'
   push:
     branches:
       - ci-cd
@@ -18,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ci-cd
+          ref: master
 
       - name: Check for updates
         run: |
@@ -40,7 +42,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "build(deps): Update dependency versions"
           commit-message: "Update dependency versions"
-          branch: ci-cd
+          branch: deps
           base: master
           body: |
               This PR updates the dependencies to their latest versions.
