@@ -1,0 +1,61 @@
+name: "Upgrade packages"
+
+on:
+  schedule:
+    - cron: "0 0 12 ? * MON *"
+
+permissions:
+  pull-requests: write
+
+jobs:
+  main:
+    name: Check for updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Composer
+        uses: php-actions/setup@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install PHP-CLI
+        run: sudo apt-get install php-cli
+
+      - name: Check for updates
+        run: |
+          php -r '
+            $composerJson = file_get_contents("composer.json");
+            $composerData = json_decode($composerJson, true);
+
+            foreach ($composerData["require"] as $package => $version) {
+              exec("composer show -l $package", $output, $returnCode);
+              if ($returnCode === 0) {
+                $lines = array_filter($output, function ($line) {
+                  return strpos($line, "latest") !== false;
+                });
+                foreach ($lines as $line) {
+                  preg_match("/\(([^\)]+)\)/", $line, $matches);
+                  if (isset($matches[1])) {
+                    $latestVersion = $matches[1];
+                    if (version_compare($latestVersion, $version, ">")) {
+                      echo "Updating $package from $version to $latestVersion\n";
+                      $composerData["require"][$package] = "^$latestVersion";
+                    }
+                  }
+                }
+              }
+            }
+
+            file_put_contents("composer.json", json_encode($composerData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");
+          '
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "Achyut Neupane"
+          git config --global user.email "achyutkneupane@gmail.com"
+          git add composer.json
+          git commit -m "deps: Update dependency versions"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
