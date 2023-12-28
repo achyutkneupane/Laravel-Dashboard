@@ -4,7 +4,7 @@ name: Upgrade packages
     branches:
       - ci-cd
 permissions:
-  pull-requests: write
+  contents: write
 jobs:
   main:
     name: Check for updates
