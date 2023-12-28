@@ -1,12 +1,12 @@
-name: "Upgrade packages"
-
-on:
+name: Upgrade packages
+'on':
   schedule:
-    - cron: "0 0 12 ? * MON *"
-
+    - cron: 0 0 12 ? * MON *
+  push:
+    branches:
+      - ci-cd
 permissions:
   pull-requests: write
-
 jobs:
   main:
     name: Check for updates
@@ -19,49 +19,44 @@ jobs:
         run: |
           #!/bin/bash
 
-          # Function to get the latest version from Packagist
           get_latest_version() {
               packageName=$1
-              latestVersion=$(curl -s "https://repo.packagist.org/p/${packageName}.json" | jq -r '.packages["'"$packageName"'"][0].version')
+              latestVersion=$(curl -s "https://repo.packagist.org/p2/${packageName}.json" | jq -r '.packages["'$packageName'"] | keys[] as $k | .[$k].version' | sort -V | tail -1)
               echo "$latestVersion"
           }
 
-          # Check if composer.json exists
-          if [ -f "composer.json" ]; then
-              # Read composer.json and update versions
-              while IFS=":" read -r key value; do
-                  key=$(echo "$key" | tr -d '," ')
-                  value=$(echo "$value" | tr -d '," ')
+          update_version() {
+              packageName=$1
+              newVersion=$2
+              oldVersion=$3
+              escapedPackageName=$(sed 's/[\*\.&\/]/\\&/g' <<< "$packageName")
+              escapedOldVersion=$(sed 's/[\*\.&\/]/\\&/g' <<< "$oldVersion")
+              escapedNewVersion=$(sed 's/[\*\.&\/]/\\&/g' <<< "$newVersion")
+              sed -i '' "s/\"$escapedPackageName\": \"$escapedOldVersion\"/\"$escapedPackageName\": \"$escapedNewVersion\"/g" composer.json
+          }
 
-                  if [ "$key" == "require" ]; then
-                      # Iterate through package names and update versions
-                      while IFS=":" read -r package version; do
-                          package=$(echo "$package" | tr -d '," ')
-                          version=$(echo "$version" | tr -d '," ')
-                          latest_version=$(get_latest_version "$package")
-
-                          if [ "$latest_version" != "null" ]; then
-                              # Update version if a newer version exists
-                              sed -i "s/\"$package\": \"$version\"/\"$package\": \"$latest_version\"/g" composer.json
-                              echo "Updated $package from $version to $latest_version"
-                          else
-                              echo "No update available for $package"
+          jq -r 'keys[] as $k | "\($k) \(.[$k])"' composer.json | while read -r key value; do
+              if [[ $key == require ]]; then
+                  jq -r 'keys[] as $k | "\($k) \(.[$k])"' <<< "$value" | while read -r packageName version; do
+                      if [[ $packageName != "php" && $packageName != "ext-json" ]]; then
+                          latestVersion=$(get_latest_version "$packageName")
+                          if [[ $version != $latestVersion ]]; then
+                              echo "Updating $packageName from $version to $latestVersion"
+                              update_version "$packageName" "$latestVersion" "$version"
                           fi
-                      done < <(echo "$value" | jq -r 'to_entries[] | .key + " " + .value')
-                  fi
-              done < <(jq -r 'to_entries[] | .key + " " + (.value | tostring)' composer.json)
-          else
-              echo "composer.json not found!"
-          fi
+                      fi
+                  done
+              fi
+          done
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
       - name: Commit changes
         run: |
           git config --global user.name "Achyut Neupane"
           git config --global user.email "achyutkneupane@gmail.com"
           git add composer.json
-          git commit -m "deps: Update dependency versions"
+          git commit -m "build(deps): Update dependency versions"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
