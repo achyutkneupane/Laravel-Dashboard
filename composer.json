@@ -3,8 +3,8 @@
   "description": "The ready-to-use Laravel Dashboard with Livewire.",
   "require": {
     "php": "^7.3|^8.0",
-    "livewire/livewire": "v3.3.3",
-    "rappasoft/laravel-livewire-tables": "v3.1.6",
+    "livewire/livewire": "^2.12.6|^3.3.5",
+    "rappasoft/laravel-livewire-tables": "^2.15.0|^3.1.6",
     "spatie/image": "3.3.2",
     "spatie/laravel-medialibrary": "11.0.3",
     "laravel/framework": "v10.39.0",
