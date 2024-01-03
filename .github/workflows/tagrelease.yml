@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - bladefix
+
 jobs:
   build:
     runs-on: ubuntu-latest
