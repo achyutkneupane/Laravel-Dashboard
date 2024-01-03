@@ -9,6 +9,7 @@
     "laravel/ui": "v4.3.0",
     "barryvdh/laravel-debugbar": "v3.9.2",
     "spatie/laravel-permission": "6.3.0",
+    "achyutn/laravel-helpers": "^0.0.3",
     "ext-json": "*"
   },
   "autoload": {
